@@ -1,10 +1,10 @@
 #!/usr/bin/python
 """
-Maturam.py
+maturam_game.py
 
 Introduction:
 
-This is my attemp to learn some python and work on a rogue like game
+This is my attempt to learn some python and work on a rogue like game
 
 References:
 

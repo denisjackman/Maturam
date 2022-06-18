@@ -13,7 +13,8 @@ Date| Version | Author | Reason
 
 ## Links
 * [Maturam Game Page](https://denisjackman.github.io/Maturam/)
-* [Maturam Code Page](https://github.com/denisjackman/Maturam)
+* [Maturam Game Source Code](https://github.com/denisjackman/Maturam)
+* [Maturam Game Wiki](https://github.com/denisjackman/Maturam/wiki)
 
 ## Notes
 
