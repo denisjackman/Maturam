@@ -27,7 +27,7 @@ Date| Version | Author | Reason
 * [![pages-build-deployment](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment)
 
 ## Licence
-![Creative Commons](images/cc-zero.png)
+![Creative Commons](docs/cc-zero.png)
 
 
 

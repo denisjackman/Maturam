@@ -8,4 +8,4 @@ Welcome to the home of Maturam a Roguelike game
 
 
 ## Licence
-![Creative Commons](https://github.com/denisjackman/Maturam/blob/main/images/cc-zero.png)
+![Creative Commons](cc-zero.png)
