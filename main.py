@@ -10,7 +10,7 @@ from input_handlers import EventHandler
 
 def main() -> None:
     '''
-        This is the main function 
+        This is the main function
     '''
     screen_width = 80
     screen_height = 50
