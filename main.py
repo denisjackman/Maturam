@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-import tcod
+'''
+    This is the main test code for the maturma game
+'''
 
+import tcod
 from actions import EscapeAction, MovementAction
 from input_handlers import EventHandler
 
 
 def main() -> None:
+    '''
+        This is the main function 
+    '''
     screen_width = 80
     screen_height = 50
 

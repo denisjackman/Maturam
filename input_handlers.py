@@ -11,13 +11,13 @@ class EventHandler(tcod.event.EventDispatch[Action]):
     '''
         this classes handles events
     '''
-    def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:  # pylint: disable=R0201
+    def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
         '''
             this is for the quit event
         '''
         raise SystemExit()
 
-    def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:  # pylint: disable=R0201
+    def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         '''
             this is for a key press event
         '''
