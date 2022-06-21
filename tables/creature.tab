@@ -1,6 +1,0 @@
-Type, Alignment, defence, power, agility, attacks, Maximum magic, morale, special
-"bat","evil",36,1,5,80,1,X,5,"winged"
-"bear","neutral",36,8,50,60,3,X,3,""
-"bogle","evil",36,4,25,45,1,X,5,""
-"bugbear","evil"36,7,30,55,1,X,4.""
-"cart",*,4,6,X,X,1,X,3,""

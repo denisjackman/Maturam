@@ -9,6 +9,7 @@ Hone my development skills and have some fun.
 Date| Version | Author | Reason
 --|---|---|--
 20220618| 00.00.00 |Denis Jackman | Initial Version
+20220621| 00.00.01 |Denis Jackman | Added tables and updated notes
   |   |   |
 
 ## Links
@@ -16,7 +17,9 @@ Date| Version | Author | Reason
 * [Maturam Game Source Code](https://github.com/denisjackman/Maturam)
 * [Maturam Game Wiki](https://github.com/denisjackman/Maturam/wiki)
 
-## Notes
+## Tools
+* [Scan PDF to Excel](https://www.pdf2go.com/pdf-to-excel)
+* [Pixlr - Online Sprite editor](https://pixlr.com/x/#editor)
 
 ## References
 * [Roguelike Dev on Reddit](https://www.reddit.com/r/roguelikedev/)
