@@ -18,7 +18,7 @@ Date| Version | Author | Reason
 * [Maturam Game Wiki](https://github.com/denisjackman/Maturam/wiki)
 
 ## Tools
-* [Scan PDF to Excel](https://www.pdf2go.com/pdf-to-excel)
+* [Scan PDF to Excel](https://www.pdftoexcelconverter.net/)
 * [Pixlr - Online Sprite editor](https://pixlr.com/x/#editor)
 
 ## References
