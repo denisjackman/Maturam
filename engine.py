@@ -9,6 +9,9 @@ from input_handlers import EventHandler
 
 
 class Engine:
+    '''
+        This is the game engine class
+    '''
     def __init__(self,
                  entities: Set[Entity],
                  event_handler: EventHandler,
@@ -20,6 +23,9 @@ class Engine:
         self.player = player
 
     def handle_events(self, events: Iterable[Any]) -> None:
+        '''
+            This handles events
+        '''
         for event in events:
             action = self.event_handler.dispatch(event)
 
@@ -30,6 +36,10 @@ class Engine:
 
 
     def render(self, console: Console, context: Context) -> None:
+        '''
+            This is the rendering function
+            
+        '''
         self.game_map.render(console)
         for entity in self.entities:
             console.print(entity.x, entity.y, entity.char, fg=entity.color)

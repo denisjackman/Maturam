@@ -4,6 +4,7 @@
 '''
 
 import tcod
+from colours import *
 from engine import Engine
 from entity import Entity
 from game_map import GameMap
@@ -31,10 +32,10 @@ def main() -> None:
 
     player = Entity(int(screen_width / 2),
                     int(screen_height / 2),
-                    "@", (255, 255, 255))
+                    "@", WHITE)
     npc = Entity(int(screen_width / 2 - 5),
                  int(screen_height / 2),
-                 "@", (255, 255, 0))
+                 "@", YELLOW)
     entities = {npc, player}
     game_map = GameMap(map_width, map_height)
 
