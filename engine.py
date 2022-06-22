@@ -1,5 +1,5 @@
 '''
-    This is the game engine module 
+    This is the game engine module
 '''
 from typing import Set, Iterable, Any
 
@@ -36,7 +36,6 @@ class Engine:
                 continue
 
             action.perform(self, self.player)
-
 
     def render(self, console: Console, context: Context) -> None:
         '''

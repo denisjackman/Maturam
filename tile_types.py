@@ -1,3 +1,6 @@
+'''
+    The Tile Types class
+'''
 from typing import Tuple
 
 import numpy as np
@@ -41,6 +44,7 @@ floor = new_tile(
     transparent=True,
     dark=(ord(" "), WHITE, BLUE),
 )
+
 wall = new_tile(
     walkable=False,
     transparent=False,
