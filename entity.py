@@ -4,7 +4,7 @@
 from typing import Tuple
 
 
-class Entity:  # pylint: disable R0903
+class Entity:
     """
     A generic object to represent players, enemies, items, etc.
     """
@@ -24,3 +24,9 @@ class Entity:  # pylint: disable R0903
         '''
         self.x += dx
         self.y += dy
+
+    def information(self):
+        '''
+            a passable method
+        '''
+        return self.color
