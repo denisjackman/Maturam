@@ -1,7 +1,11 @@
 from typing import Tuple
 
 import numpy as np
-from colours import *
+from colours import (
+    BLUE,
+    DARK_BLUE,
+    WHITE
+)
 
 # Tile graphics structured type compatible with Console.tiles_rgb.
 graphic_dt = np.dtype(

@@ -4,7 +4,10 @@
 '''
 
 import tcod
-from colours import *
+from colours import (
+    WHITE,
+    YELLOW
+)
 from engine import Engine
 from entity import Entity
 from game_map import GameMap

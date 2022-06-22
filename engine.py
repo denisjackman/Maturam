@@ -1,3 +1,6 @@
+'''
+    This is the game engine module 
+'''
 from typing import Set, Iterable, Any
 
 from tcod.context import Context
@@ -38,7 +41,6 @@ class Engine:
     def render(self, console: Console, context: Context) -> None:
         '''
             This is the rendering function
-            
         '''
         self.game_map.render(console)
         for entity in self.entities:

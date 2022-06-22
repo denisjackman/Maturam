@@ -39,11 +39,11 @@ class MovementAction(Action):  # pylint: disable=R0903
     '''
         this is the class for a movement action
     '''
-    def __init__(self, dx: int, dy: int):
+    def __init__(self, dx: int, dy: int):  # pylint: disable C0103
         super().__init__()
 
-        self.dx = dx
-        self.dy = dy
+        self.dx = dx  # pylint: disable C0103
+        self.dy = dy  # pylint: disable C0103
 
     def perform(self, engine: Engine, entity: Entity) -> None:
         dest_x = entity.x + self.dx
