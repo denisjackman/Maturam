@@ -83,7 +83,7 @@ def generate_dungeon(
     map_width: int,
     map_height: int,
     player: Entity,
-) -> GameMap:
+) -> GameMap:  # pylint: disable=R0913
     '''
         Generate a new dungeon map.
     '''
@@ -91,7 +91,7 @@ def generate_dungeon(
 
     rooms: List[RectangularRoom] = []
 
-    for r in range(max_rooms):
+    for r in range(max_rooms):  # pylint: disable=W0612
         room_width = random.randint(room_min_size, room_max_size)
         room_height = random.randint(room_min_size, room_max_size)
 

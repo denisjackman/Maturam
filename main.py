@@ -14,7 +14,7 @@ from input_handlers import EventHandler
 from procgen import generate_dungeon
 
 
-def main() -> None:
+def main() -> None:  # pylint: disable=R0914
     '''
         This is the main function
     '''
