@@ -1,7 +1,0 @@
-Type, penalty, exception
-"fog", .5, ("kobold, "undead")
-"hail", .5, ("bogle", "giant", "ogre", "troll", "swampatole")
-"rain", .5, ("bogle", "giant", "ogre", "troll", "swampatole")
-"snow", .5, ("bogle", "giant", "ogre", "troll", "swampatole")
-"storm", .5, ("giant", "ogre", "troll")
-"wind", .5, ("all", "not winged")

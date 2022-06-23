@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-    This is the main test code for the maturma game
+    This is the main test code for the maturam game
 '''
 
 import tcod
