@@ -75,7 +75,7 @@ def tunnel_between(
     for x, y in tcod.los.bresenham((corner_x, corner_y), (x2, y2)).tolist():
         yield x, y
 
-# pylint: disable=R0913
+#pylint: disable=too-many-arguments
 def generate_dungeon(
     max_rooms: int,
     room_min_size: int,
@@ -84,7 +84,7 @@ def generate_dungeon(
     map_height: int,
     player: Entity,
 ) -> GameMap:
-# pylint: enable=R0913
+
     '''
         Generate a new dungeon map.
     '''
@@ -122,3 +122,4 @@ def generate_dungeon(
         rooms.append(new_room)
 
     return dungeon
+#pylint: enable=too-many-arguments
