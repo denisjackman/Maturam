@@ -1,7 +1,6 @@
 '''
     This is the game engine module
 '''
-from typing import Set, Iterable, Any
 
 from tcod.context import Context
 from tcod.console import Console
@@ -10,17 +9,17 @@ from entity import Entity
 from game_map import GameMap
 from input_handlers import EventHandler
 
+from typing import Iterable, Any
+
 
 class Engine:
     '''
         This is the game engine class
     '''
     def __init__(self,
-                 entities: Set[Entity],
                  event_handler: EventHandler,
                  game_map: GameMap,
                  player: Entity):
-        self.entities = entities
         self.event_handler = event_handler
         self.game_map = game_map
         self.player = player
