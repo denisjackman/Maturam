@@ -20,6 +20,7 @@ Date| Version | Author | Reason
 ## Tools
 * [Scan PDF to Excel](https://www.pdftoexcelconverter.net/)
 * [Pixlr - Online Sprite editor](https://pixlr.com/x/#editor)
+* [RGB Colour Picker](https://www.colorspire.com/rgb-color-wheel/)
 
 ## References
 * [Roguelike Dev on Reddit](https://www.reddit.com/r/roguelikedev/)
