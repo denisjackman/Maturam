@@ -1,6 +1,7 @@
 '''
     This is the game engine module
 '''
+from typing import Iterable, Any
 
 from tcod.context import Context
 from tcod.console import Console
@@ -9,8 +10,6 @@ from tcod.map import compute_fov
 from entity import Entity
 from game_map import GameMap
 from input_handlers import EventHandler
-
-from typing import Iterable, Any
 
 
 class Engine:
@@ -27,6 +26,9 @@ class Engine:
         self.update_fov()
 
     def handle_enemy_turns(self) -> None:
+        '''
+            Enemy turns
+        '''
         for entity in self.game_map.entities - {self.player}:
             print(f'The {entity.name} wonders when it will get to take a real turn.')
 

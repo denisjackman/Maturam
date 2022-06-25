@@ -1,3 +1,6 @@
+'''
+    This is a factory for entities
+'''
 from entity import Entity
 from colours import (
     WHITE,

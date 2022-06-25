@@ -57,9 +57,12 @@ class RectangularRoom:
 def place_entities(
     room: RectangularRoom, dungeon: GameMap, maximum_monsters: int,
 ) -> None:
+    '''
+        place the entities in the room
+    '''
     number_of_monsters = random.randint(0, maximum_monsters)
 
-    for i in range(number_of_monsters):
+    for _ in range(number_of_monsters):
         x = random.randint(room.x1 + 1, room.x2 - 1)
         y = random.randint(room.y1 + 1, room.y2 - 1)
 
@@ -68,6 +71,7 @@ def place_entities(
                 entity_factories.orc.spawn(dungeon, x, y)
             else:
                 entity_factories.troll.spawn(dungeon, x, y)
+
 
 def tunnel_between(
     start: Tuple[int, int], end: Tuple[int, int]
@@ -90,7 +94,7 @@ def tunnel_between(
     for x, y in tcod.los.bresenham((corner_x, corner_y), (x2, y2)).tolist():
         yield x, y
 
-#pylint: disable=too-many-arguments
+
 def generate_dungeon(
     max_rooms: int,
     room_min_size: int,
@@ -134,11 +138,9 @@ def generate_dungeon(
             for x, y in tunnel_between(rooms[-1].center, new_room.center):
                 dungeon.tiles[x, y] = tile_types.floor
 
-
         place_entities(new_room, dungeon, max_monsters_per_room)
 
         # Finally, append the new room to the list.
         rooms.append(new_room)
 
     return dungeon
-#pylint: enable=too-many-arguments
