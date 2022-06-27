@@ -1,44 +1,39 @@
 '''
     This is the game engine module
 '''
-from typing import Set, Iterable, Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from tcod.context import Context
 from tcod.console import Console
 from tcod.map import compute_fov
 
-from entity import Entity
-from game_map import GameMap
 from input_handlers import EventHandler
+
+
+if TYPE_CHECKING:
+    from entity import Entity
+    from game_map import GameMap
 
 
 class Engine:
     '''
         This is the game engine class
     '''
-    def __init__(self,
-                 entities: Set[Entity],
-                 event_handler: EventHandler,
-                 game_map: GameMap,
-                 player: Entity):
-        self.entities = entities
-        self.event_handler = event_handler
-        self.game_map = game_map
+    game_map: GameMap
+
+    def __init__(self, player: Entity):
+        self.event_handler: EventHandler = EventHandler(self)
         self.player = player
-        self.update_fov()
 
-    def handle_events(self, events: Iterable[Any]) -> None:
+    def handle_enemy_turns(self) -> None:
         '''
-            This handles events
+            Enemy turns
         '''
-        for event in events:
-            action = self.event_handler.dispatch(event)
+        for entity in self.game_map.entities - {self.player}:
+            print(f'The {entity.name} wonders when it will get to take a real turn.')
 
-            if action is None:
-                continue
-
-            action.perform(self, self.player)
-            self.update_fov()  # Update the FOV before the players next action.
 
     def update_fov(self) -> None:
         """Recompute the visible area based on the players point of view."""
@@ -55,10 +50,6 @@ class Engine:
             This is the rendering function
         '''
         self.game_map.render(console)
-        for entity in self.entities:
-            # Only print entities that are in the FOV
-            if self.game_map.visible[entity.x, entity.y]:
-                console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
         context.present(console)
 
