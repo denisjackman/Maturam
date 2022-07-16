@@ -14,6 +14,9 @@ if TYPE_CHECKING:
 def render_bar(
     console: Console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
+    '''
+        render the health bar
+    '''
     bar_width = int(float(current_value) / maximum_value * total_width)
 
     console.draw_rect(x=0,
