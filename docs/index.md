@@ -2,6 +2,10 @@
 ### Introduction
 Welcome to the home of Maturam a Roguelike game. This is an exercise in building a rougue like game. We will be using the tutorial hosted [here](https://rogueliketutorials.com/tutorials/tcod/v2/) as the basis for our work. There may be some changes as we go. These will be based on logic and neccessity.
 
+### Links
+* [RogueLike](https://www.gridsagegames.com/blog/2018/10/how-to-make-a-roguelike/)
+* [Assets](https://www.kenney.nl/)
+
 ## Status
 * [![Pylint](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml)
 * [![pages-build-deployment](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment)
