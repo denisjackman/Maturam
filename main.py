@@ -57,8 +57,8 @@ def main() -> None:  # pylint: disable=R0914
     )
 
     with tcod.context.new(
-        width=screen_width,
-        height=screen_height,
+        columns=screen_width,
+        rows=screen_height,
         tileset=tileset,
         title="Yet Another Roguelike Tutorial",
         vsync=True,
