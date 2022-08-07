@@ -24,6 +24,14 @@ class Fighter(BaseComponent):
         self.defense = defense
         self.power = power
 
+    def denis(self, amount: int):
+        '''
+            reset hp
+        '''
+        self._hp = amount
+        if self._hp > self.max_hp:
+            self._hp = self.max_hp
+
     @property
     def hp(self) -> int:
         '''
