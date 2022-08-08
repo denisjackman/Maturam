@@ -84,7 +84,7 @@ class EventHandler(tcod.event.EventDispatch[Action]):
         try:
             action.perform()
         except exceptions.Impossible as exc:
-            self.engine.message_log.add_message(exc.args[0], color.impossible)
+            self.engine.message_log.add_message(exc.args[0], colours.IMPOSSIBLE)
             return False  # Skip enemy turn on exceptions.
 
         self.engine.handle_enemy_turns()

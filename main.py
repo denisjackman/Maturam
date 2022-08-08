@@ -76,10 +76,11 @@ def main() -> None:  # pylint: disable=R0914
                 for event in tcod.event.wait():
                     context.convert_event(event)
                     engine.event_handler.handle_events(event)
-            except Exception:  # Handle exceptions in game.
+            except Exception:  # pylint: disable=W0703
+                # Handle exceptions in game.
                 traceback.print_exc()  # Print error to stderr.
                 # Then print the error to the message log.
-                engine.message_log.add_message(traceback.format_exc(), color.error)
+                engine.message_log.add_message(traceback.format_exc(), colours.ERROR)
 
 
 
