@@ -43,6 +43,13 @@ class GameMap:
         )
         # Tiles the player has seen before
     @property
+    def gamemap(self) -> GameMap:
+        '''
+            gamemap property
+        '''
+        return self
+
+    @property
     def actors(self) -> Iterator[Actor]:
         """Iterate over this maps living actors."""
         yield from (
