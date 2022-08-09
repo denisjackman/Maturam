@@ -61,7 +61,7 @@ class GameMap:
     @property
     def items(self) -> Iterator[Item]:
         '''
-            items property 
+            items property
         '''
         yield from (entity for entity in self.entities if isinstance(entity, Item))
 
