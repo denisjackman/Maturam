@@ -13,6 +13,7 @@ Welcome to the home of Maturam a [Roguelike](https://en.wikipedia.org/wiki/Rogue
 * [Roguelike-week 4](https://www.reddit.com/r/roguelikedev/comments/w2c8t8/roguelikedev_does_the_complete_roguelike_tutorial/)
 * [Roguelike-week 5](https://www.reddit.com/r/roguelikedev/comments/w8c6jo/roguelikedev_does_the_complete_roguelike_tutorial/)
 * [Roguelike-week 6](https://www.reddit.com/r/roguelikedev/comments/wdyzvc/week_6_parts_10_11_saveload_and_leveling_up/)
+* [Rouguelike-week 7](https://www.reddit.com/r/roguelikedev/comments/wjs007/roguelikedev_does_the_complete_roguelike_tutorial/?utm_source=share&utm_medium=ios_app&utm_name=iossmf)
 
 
 ## Status
