@@ -102,12 +102,12 @@ class MainMenu(input_handlers.BaseEventHandler):
     ) -> Optional[input_handlers.BaseEventHandler]:
         if event.sym in (tcod.event.K_q, tcod.event.K_ESCAPE):
             raise SystemExit()
-        elif event.sym == tcod.event.K_c:
+        if event.sym == tcod.event.K_c:
             try:
                 return input_handlers.MainGameEventHandler(load_game("saves/savegame.sav"))
             except FileNotFoundError:
                 return input_handlers.PopupMessage(self, "No saved game to load.")
-            except Exception as exc:
+            except Exception as exc:  # pylint: disable=W0703
                 traceback.print_exc()  # Print to stderr.
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
         elif event.sym == tcod.event.K_n:

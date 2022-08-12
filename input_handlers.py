@@ -115,8 +115,8 @@ class PopupMessage(BaseEventHandler):
             console.width // 2,
             console.height // 2,
             self.text,
-            fg=color.white,
-            bg=color.black,
+            fg=colours.WHITE,
+            bg=colours.BLACK,
             alignment=tcod.CENTER,
         )
 
@@ -523,3 +523,4 @@ class HistoryViewer(EventHandler):
         else:  # Any other key moves back to the main game state.
             self.engine.event_handler = MainGameEventHandler(self.engine)
             return MainGameEventHandler(self.engine)
+        return None
