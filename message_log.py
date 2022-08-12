@@ -37,7 +37,7 @@ class MessageLog:
         self, text: str, fg: Tuple[int, int, int] = colours.WHITE, *, stack: bool = True,
     ) -> None:
         """Add a message to this log.
-        `text` is the message text, `fg` is the text color.
+        `text` is the message text, `fg` is the text colour.
         If `stack` is True then the message can stack with a previous message
         of the same text.
         """

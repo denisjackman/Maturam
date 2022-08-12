@@ -4,14 +4,8 @@
 from typing import Tuple
 
 import numpy as np
-from colours import (
-    BLUE,
-    DARK_BLUE,
-    WHITE,
-    BLACK,
-    BEIGE,
-    BROWN
-)
+import colours 
+
 
 # Tile graphics structured type compatible with Console.tiles_rgb.
 graphic_dt = np.dtype(
@@ -47,18 +41,25 @@ def new_tile(
 
 
 # SHROUD represents unexplored, unseen tiles
-SHROUD = np.array((ord(" "), WHITE, BLACK), dtype=graphic_dt)
+SHROUD = np.array((ord(" "), colours.WHITE, colours.BLACK), dtype=graphic_dt)
 
 floor = new_tile(
     walkable=True,
     transparent=True,
-    dark=(ord(" "), WHITE, BLUE),
-    light=(ord(" "), WHITE, BEIGE),
+    dark=(ord(" "), colours.WHITE, colours.BLUE),
+    light=(ord(" "), colours.WHITE, colours.BEIGE),
 )
 
 wall = new_tile(
     walkable=False,
     transparent=False,
-    dark=(ord(" "), WHITE, DARK_BLUE),
-    light=(ord(" "), WHITE, BROWN),
+    dark=(ord(" "), colours.WHITE, colours.DARK_BLUE),
+    light=(ord(" "), colours.WHITE, colours.BROWN),
+)
+
+down_stairs = new_tile(
+    walkable=True,
+    transparent=True,
+    dark=(ord(">"), colours.STAIRS, colours.BLUE),
+    light=(ord(">"), colours.WHITE, colours.BEIGE),
 )

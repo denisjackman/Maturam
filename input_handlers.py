@@ -415,8 +415,15 @@ class MainGameEventHandler(EventHandler):
         action: Optional[Action] = None
 
         key = event.sym
+        modifier = event.mod
 
         player = self.engine.player
+
+        if key == tcod.event.K_PERIOD and modifier & (
+            tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
+        ):
+            return actions.TakeStairsAction(player)
+
 
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]
@@ -504,7 +511,7 @@ class HistoryViewer(EventHandler):
         log_console.blit(console, 3, 3)
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[MainGameEventHandler]:
-        # Fancy conditional movement to make it feel right.
+        ''' Fancy conditional movement to make it feel right. '''
         if event.sym in CURSOR_Y_KEYS:
             adjust = CURSOR_Y_KEYS[event.sym]
             if adjust < 0 and self.cursor == 0:
