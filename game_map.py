@@ -15,7 +15,6 @@ if TYPE_CHECKING:
     from engine import Engine
     from entity import Entity
 
-
 class GameMap:
     '''
         gamemap class
@@ -42,9 +41,9 @@ class GameMap:
             (width, height), fill_value=False, order="F"
         )
         # Tiles the player has seen before
-        
+
         self.downstairs_location = (0, 0)
-            
+
     @property
     def gamemap(self) -> GameMap:
         '''
@@ -165,7 +164,7 @@ class GameWorld:
         '''
             generate floor
         '''
-        from procgen import generate_dungeon
+        from procgen import generate_dungeon   # pylint: disable=C0415
 
         self.current_floor += 1
 

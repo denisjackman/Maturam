@@ -4,7 +4,7 @@
 from typing import Tuple
 
 import numpy as np
-import colours 
+import colours
 
 
 # Tile graphics structured type compatible with Console.tiles_rgb.
