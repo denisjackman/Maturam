@@ -123,7 +123,6 @@ class PopupMessage(BaseEventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[BaseEventHandler]:
         """Any key returns to the parent handler."""
         return self.parent
-
 class EventHandler(BaseEventHandler):
     '''
         this classes handles events
@@ -179,7 +178,6 @@ class EventHandler(BaseEventHandler):
         '''
         self.engine.render(console)
 
-
 class AskUserEventHandler(EventHandler):
     """Handles user input for actions which require special input."""
 
@@ -208,6 +206,54 @@ class AskUserEventHandler(EventHandler):
         By default this returns to the main event handler.
         """
         return MainGameEventHandler(self.engine)
+
+class CharacterScreenEventHandler(AskUserEventHandler):
+    '''
+        this class handles character screen events
+    '''
+    TITLE = "Character Information"
+
+    def on_render(self, console: tcod.Console) -> None:
+        super().on_render(console)
+
+        if self.engine.player.x <= 30:
+            x = 40
+        else:
+            x = 0
+
+        y = 0
+
+        width = len(self.TITLE) + 4
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=7,
+            title=self.TITLE,
+            clear=True,
+            fg=colours.WHITE,
+            bg=colours.BLACK,
+        )
+
+        console.print(
+            x=x + 1, y=y + 1, string=f"Level: {self.engine.player.level.current_level}"
+        )
+        console.print(
+            x=x + 1, y=y + 2, string=f"XP: {self.engine.player.level.current_xp}"
+        )
+        console.print(
+            x=x + 1,
+            y=y + 3,
+            string=f"XP for next Level: {self.engine.player.level.experience_to_next_level}",
+        )
+
+        console.print(
+            x=x + 1, y=y + 4, string=f"Attack: {self.engine.player.fighter.power}"
+        )
+        console.print(
+            x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defense}"
+        )
 
 class LevelUpEventHandler(AskUserEventHandler):
     '''
@@ -344,8 +390,6 @@ class InventoryEventHandler(AskUserEventHandler):
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         """Called when the user selects a valid item."""
 
-
-
 class InventoryActivateHandler(InventoryEventHandler):
     """Handle using an inventory item."""
 
@@ -355,7 +399,6 @@ class InventoryActivateHandler(InventoryEventHandler):
         """Return the action for the selected item."""
         return item.consumable.get_action(self.engine.player)
 
-
 class InventoryDropHandler(InventoryEventHandler):
     """Handle dropping an inventory item."""
 
@@ -364,7 +407,6 @@ class InventoryDropHandler(InventoryEventHandler):
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
-
 
 class SelectIndexHandler(AskUserEventHandler):
     """Handles asking the user for an index on the map."""
@@ -419,7 +461,6 @@ class SelectIndexHandler(AskUserEventHandler):
     def on_index_selected(self, x: int, y: int) -> Optional[ActionOrHandler]:
         """Called when an index is selected."""
         raise NotImplementedError()
-
 
 class LookHandler(SelectIndexHandler):
     """Lets the player look around using the keyboard."""
@@ -513,14 +554,15 @@ class MainGameEventHandler(EventHandler):
             return InventoryActivateHandler(self.engine)
         elif key == tcod.event.K_d:
             return InventoryDropHandler(self.engine)
+        elif key == tcod.event.K_c:
+            return CharacterScreenEventHandler(self.engine)
         elif key == tcod.event.K_SLASH:
             return LookHandler(self.engine)
 
         elif key in HEALTH_KEYS:
-            player.fighter.denis(30)
+            player.fighter.denis(player.fighter.max_hp)
         # No valid key was pressed
         return action
-
 
 class GameOverEventHandler(EventHandler):
     '''
@@ -542,7 +584,6 @@ class GameOverEventHandler(EventHandler):
         '''
         if event.sym == tcod.event.K_ESCAPE:
             self.on_quit()
-
 
 CURSOR_Y_KEYS = {
     tcod.event.K_UP: -1,
