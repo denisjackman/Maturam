@@ -68,6 +68,12 @@ CONFIRM_KEYS = {
     tcod.event.K_KP_ENTER,
 }
 
+CURSOR_Y_KEYS = {
+    tcod.event.K_UP: -1,
+    tcod.event.K_DOWN: 1,
+    tcod.event.K_PAGEUP: -10,
+    tcod.event.K_PAGEDOWN: 10,
+}
 
 ActionOrHandler = Union[Action, "BaseEventHandler"]
 """An event handler return value which can trigger an action or switch active handlers.
@@ -76,7 +82,6 @@ If a handler is returned then it will become the active handler for future event
 If an action is returned it will be attempted and if it's valid then
 MainGameEventHandler will become the active handler.
 """
-
 
 class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     '''
@@ -563,7 +568,6 @@ class MainGameEventHandler(EventHandler):
             player.fighter.denis(player.fighter.max_hp)
         # No valid key was pressed
         return action
-
 class GameOverEventHandler(EventHandler):
     '''
         game over event
@@ -584,14 +588,6 @@ class GameOverEventHandler(EventHandler):
         '''
         if event.sym == tcod.event.K_ESCAPE:
             self.on_quit()
-
-CURSOR_Y_KEYS = {
-    tcod.event.K_UP: -1,
-    tcod.event.K_DOWN: 1,
-    tcod.event.K_PAGEUP: -10,
-    tcod.event.K_PAGEDOWN: 10,
-}
-
 
 class HistoryViewer(EventHandler):
     """Print the history on a larger window which can be navigated."""
