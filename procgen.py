@@ -54,8 +54,7 @@ def get_max_value_for_floor(
     for floor_minimum, value in max_value_by_floor:
         if floor_minimum > floor:
             break
-        else:
-            current_value = value
+        current_value = value
 
     return current_value
 
@@ -73,12 +72,11 @@ def get_entities_at_random(
     for key, values in weighted_chances_by_floor.items():
         if key > floor:
             break
-        else:
-            for value in values:
-                entity = value[0]
-                weighted_chance = value[1]
+        for value in values:
+            entity = value[0]
+            weighted_chance = value[1]
 
-                entity_weighted_chances[entity] = weighted_chance
+            entity_weighted_chances[entity] = weighted_chance
 
     entities = list(entity_weighted_chances.keys())
     entity_weighted_chance_values = list(entity_weighted_chances.values())
@@ -144,7 +142,7 @@ def place_entities(room: RectangularRoom, dungeon: GameMap, floor_number: int,) 
     items: List[Entity] = get_entities_at_random(
         item_chances, number_of_items, floor_number
     )
-    
+
     for entity in monsters + items:
         x = random.randint(room.x1 + 1, room.x2 - 1)
         y = random.randint(room.y1 + 1, room.y2 - 1)
