@@ -56,7 +56,7 @@ class Equipment(BaseComponent):
         '''
         is it equipped?
         '''
-        return self.weapon == item or self.armor == item
+        return item in (self.weapon, self.armor)
 
     def unequip_message(self, item_name: str) -> None:
         '''

@@ -411,7 +411,7 @@ class InventoryActivateHandler(InventoryEventHandler):
         if item.consumable:
             # Return the action for the selected item.
             return item.consumable.get_action(self.engine.player)
-        elif item.equippable:
+        if item.equippable:
             return actions.EquipAction(self.engine.player, item)
         return None
 
