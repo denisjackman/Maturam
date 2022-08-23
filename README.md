@@ -10,6 +10,7 @@ Date| Version | Author | Reason
 --|---|---|--
 20220618| 00.00.00 |Denis Jackman | Initial Version
 20220621| 00.00.01 |Denis Jackman | Added tables and updated notes
+20220823| 01.00.00 |Denis Jackman | Final version based on the tutorials
   |   |   |
 
 ## Links
@@ -32,13 +33,3 @@ Date| Version | Author | Reason
 
 ## Licence
 ![Creative Commons](docs/cc-zero.png)
-
-
-
-
-
-
-
-
-
-]
