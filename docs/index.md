@@ -14,7 +14,21 @@ Welcome to the home of Maturam a [Roguelike](https://en.wikipedia.org/wiki/Rogue
 * [Roguelike-week 5](https://www.reddit.com/r/roguelikedev/comments/w8c6jo/roguelikedev_does_the_complete_roguelike_tutorial/)
 * [Roguelike-week 6](https://www.reddit.com/r/roguelikedev/comments/wdyzvc/week_6_parts_10_11_saveload_and_leveling_up/)
 * [Rouguelike-week 7](https://www.reddit.com/r/roguelikedev/comments/wjs007/roguelikedev_does_the_complete_roguelike_tutorial/?utm_source=share&utm_medium=ios_app&utm_name=iossmf)
+* [Roguelike-week 8](https://www.reddit.com/r/roguelikedev/comments/wqjqjq/roguelikedev_does_the_complete_roguelike_tutorial/?utm_source=share&utm_medium=ios_app&utm_name=iossmf)
 
+### Other roguelikes
+| Dev | Language(s) | Libraries etc.| Links/Screenshots |
+| :----|:------------|:--------------|:------------------|
+| /u/Bubbly_Knee_2433 | Python 3	| libtcod | [repo](https://github.com/y0un65t3r/youngsters_funhouse) |
+| /u/candyleader | Python 3 | libtcod | [repo](https://github.com/lefishy/rl2022) |
+| /u/deathm00n | Python 3 | libtcod | [repo](https://github.com/thiagoruiz/Roguelike-Dev-Tutorial) |
+| /u/EmuInteresting8880 | Python 3 | libtcod | [repo](https://github.com/jakehollis2285/rogueLike2) |
+| /u/Fleurboards | Python 3 | libtcod | [repo](https://github.com/CleanYourTeeth132/Mohandi) |
+| /u/knaveightt | Python 3 | libtcod | [repo](https://github.com/knaveightt/denofknaves) |
+| /u/makraiz | Python 3 | libtcod | [repo](https://github.com/makraiz/2022_reddit_rl_tutorial) |
+| /u/old_chmee | Python 3 | libtcod | [repo](https://github.com/AlexWeissSC/tcrt) |
+| /u/WorksOnMyMachiine |	Python 3 | libtcod | [repo](https://github.com/lecoqjacob/py_rrouge) |
+| /u/Zuburg | Python 3 | libtcod | [repo](https://github.com/Zoszen/RogueLike-2022) |
 
 ## Status
 * [![Pylint](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml)

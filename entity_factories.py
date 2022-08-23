@@ -2,7 +2,8 @@
     This is a factory for entities
 '''
 from components.ai import HostileEnemy
-from components import consumable
+from components import consumable, equippable
+from components.equipment import Equipment
 from components.fighter import Fighter
 from components.inventory import Inventory
 from components.level import Level
@@ -15,7 +16,8 @@ player = Actor(
     color=colours.WHITE,
     name="Player",
     ai_cls=HostileEnemy,
-    fighter=Fighter(hp=30, defense=2, power=5),
+    equipment=Equipment(),
+    fighter=Fighter(hp=30, base_defense=2, base_power=5),
     inventory=Inventory(capacity=26),
     level=Level(level_up_base=200),
 )
@@ -25,7 +27,8 @@ orc = Actor(
     color=colours.ORC_GREEN,
     name="Orc",
     ai_cls=HostileEnemy,
-    fighter=Fighter(hp=10, defense=0, power=3),
+    equipment=Equipment(),
+    fighter=Fighter(hp=10, base_defense=0, base_power=3),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=35),
 )
@@ -35,7 +38,8 @@ troll = Actor(
     color=colours.TROLL_GREEN,
     name="Troll",
     ai_cls=HostileEnemy,
-    fighter=Fighter(hp=16, defense=1, power=4),
+    equipment=Equipment(),
+    fighter=Fighter(hp=16, base_defense=1, base_power=4),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=100),
 )
@@ -66,4 +70,33 @@ lightning_scroll = Item(
     color=colours.LIGHTNING_SCROLL,
     name="Lightning Scroll",
     consumable=consumable.LightningDamageConsumable(damage=20, maximum_range=5),
+)
+
+
+dagger = Item(
+    char="/",
+    color=colours.WEAPONS_COLOUR,
+    name="Dagger",
+    equippable=equippable.Dagger()
+)
+
+sword = Item(
+    char="/",
+    color=colours.WEAPONS_COLOUR,
+    name="Sword",
+    equippable=equippable.Sword()
+)
+
+leather_armor = Item(
+    char="[",
+    color=colours.ARMOR_COLOUR,
+    name="Leather Armor",
+    equippable=equippable.LeatherArmor(),
+)
+
+chain_mail = Item(
+    char="[",
+    color=colours.ARMOR_COLOUR,
+    name="Chain Mail",
+    equippable=equippable.ChainMail()
 )
