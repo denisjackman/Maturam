@@ -17,7 +17,7 @@ class Level(BaseComponent):
     '''
     parent: Actor
 
-    def __init__(
+    def __init__(  # pylint: disable=R0917
         self,
         current_level: int = 1,
         current_xp: int = 0,

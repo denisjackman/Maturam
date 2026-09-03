@@ -46,7 +46,7 @@ class MessageLog:
         else:
             self.messages.append(Message(text, fg))
 
-    def render(
+    def render(  # pylint: disable=R0917
         self, console: tcod.Console, x: int, y: int, width: int, height: int,
     ) -> None:
         """Render this log over the given area.
