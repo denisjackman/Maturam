@@ -38,6 +38,7 @@ def test_record_score_appends_and_persists(engine, player, tmp_path):
 def test_record_score_appends_to_existing_entries(engine, player, tmp_path):
     ''' recording twice should keep both runs, not overwrite the file '''
     filename = str(tmp_path / "leaderboard.json")
+    assert player is engine.player  # the fixture must wire engine.player before recording
 
     scoring.record_score(engine, filename)
     scoring.record_score(engine, filename)
