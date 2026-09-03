@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 import colours
+import scoring
 from components.base_component import BaseComponent
 from render_order import RenderOrder
 
@@ -76,6 +77,7 @@ class Fighter(BaseComponent):
         if self.engine.player is self.parent:
             death_message = "You died!"
             death_message_color = colours.PLAYER_DIE
+            scoring.record_score(self.engine)
         else:
             death_message = f"{self.parent.name} is dead!"
             death_message_color = colours.ENEMY_DIE

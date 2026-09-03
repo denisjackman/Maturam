@@ -1,5 +1,6 @@
 # Saved games
 *.sav
+leaderboard.json
 
 # vscode files
 **/.vscode/*

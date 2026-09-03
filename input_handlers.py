@@ -23,6 +23,7 @@ from actions import (
 
 import colours
 import exceptions
+import scoring
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -179,6 +180,7 @@ class EventHandler(BaseEventHandler):
         self.engine.handle_enemy_turns()
 
         self.engine.update_fov()
+        self.engine.turn_count += 1
         return True
 
     def ev_mousemotion(self, event: tcod.event.MouseMotion) -> None:
@@ -605,6 +607,39 @@ class GameOverEventHandler(EventHandler):
     '''
         game over event
     '''
+    TITLE = "Leaderboard"
+
+    def on_render(self, console: tcod.console.Console) -> None:
+        super().on_render(console)
+
+        width = 40
+        height = 14
+
+        x = 0
+        y = 0
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            title=self.TITLE,
+            clear=True,
+            fg=colours.WHITE,
+            bg=colours.BLACK,
+        )
+
+        final_score = scoring.calculate_score(self.engine)
+        console.print(x=x + 1, y=y + 1, string=f"Your score: {final_score}")
+
+        console.print(x=x + 1, y=y + 3, string="Top scores:")
+        for i, entry in enumerate(scoring.top_scores(count=height - 5)):
+            console.print(
+                x=x + 1,
+                y=y + 4 + i,
+                string=f"{i + 1}. {entry.player} - {entry.score}",
+            )
+
     def on_quit(self) -> None:
         """Handle exiting out of a finished game."""
         if os.path.exists("savegame.sav"):

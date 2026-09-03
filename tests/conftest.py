@@ -12,15 +12,29 @@ from game_map import GameMap
 from message_log import MessageLog
 
 
+class FakeGameWorld:
+    ''' Minimal stand-in for game_map.GameWorld - just current_floor. '''
+    def __init__(self):
+        self.current_floor = 0
+
+
 class FakeEngine:
     '''
         Minimal stand-in for engine.Engine - just enough (message_log,
-        player) to satisfy BaseComponent.engine without needing a real
-        tcod rendering context.
+        player, game_world, turn_count) to satisfy BaseComponent.engine and
+        scoring.calculate_score without needing a real tcod rendering context.
     '''
     def __init__(self):
         self.message_log = MessageLog()
         self.player = None
+        self.game_world = FakeGameWorld()
+        self.turn_count = 0
+
+
+@pytest.fixture(autouse=True)
+def isolate_cwd(tmp_path, monkeypatch):
+    ''' run every test from a scratch directory, so incidental file writes (e.g. the leaderboard on player death) never touch the repo '''
+    monkeypatch.chdir(tmp_path)
 
 
 @pytest.fixture

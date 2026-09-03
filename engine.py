@@ -29,6 +29,7 @@ class Engine:
         self.message_log = MessageLog()
         self.mouse_location = (0, 0)
         self.player = player
+        self.turn_count = 0
 
     def handle_enemy_turns(self) -> None:
         '''
