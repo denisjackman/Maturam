@@ -106,6 +106,12 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
         ''' event quit '''
         raise SystemExit()
 
+    def ev_pixelsizechanged(self, event: tcod.event.WindowEvent) -> None:
+        ''' window pixel size changed - nothing to do '''
+
+    def ev_clipboardupdate(self, event: tcod.event.ClipboardUpdate) -> None:
+        ''' OS clipboard changed - nothing to do '''
+
 
 class PopupMessage(BaseEventHandler):
     """Display a popup text window."""
