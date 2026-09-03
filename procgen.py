@@ -86,6 +86,8 @@ def get_entities_at_random(
     )
 
     return chosen_entities
+
+
 class RectangularRoom:
     '''
         class for a rectangle room
@@ -124,6 +126,7 @@ class RectangularRoom:
             and self.y2 >= other.y1
             )
 
+
 def place_entities(room: RectangularRoom, dungeon: GameMap, floor_number: int,) -> None:
     '''
         place the entities in the room
@@ -149,6 +152,7 @@ def place_entities(room: RectangularRoom, dungeon: GameMap, floor_number: int,) 
 
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
             entity.spawn(dungeon, x, y)
+
 
 def tunnel_between(
     start: Tuple[int, int], end: Tuple[int, int]
@@ -180,7 +184,6 @@ def generate_dungeon(
     map_height: int,
     engine: Engine,
 ) -> GameMap:
-
     '''
         Generate a new dungeon map.
     '''

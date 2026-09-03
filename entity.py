@@ -98,6 +98,7 @@ class Entity:
         '''
         return self.color
 
+
 class Actor(Entity):
     '''
         class actor
@@ -128,7 +129,6 @@ class Actor(Entity):
 
         self.ai: Optional[BaseAI] = ai_cls(self)
 
-
         self.equipment: Equipment = equipment
         self.equipment.parent = self
 
@@ -144,6 +144,7 @@ class Actor(Entity):
     def is_alive(self) -> bool:
         """Returns True as long as this actor can perform actions."""
         return bool(self.ai)
+
 
 class Item(Entity):
     '''

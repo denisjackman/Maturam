@@ -80,6 +80,7 @@ If an action is returned it will be attempted and if it's valid then
 MainGameEventHandler will become the active handler.
 """
 
+
 class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     '''
         base event handler object
@@ -99,6 +100,7 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     def ev_quit(self, event: tcod.event.Quit) -> Optional[Action]:
         ''' event quit '''
         raise SystemExit()
+
 
 class PopupMessage(BaseEventHandler):
     """Display a popup text window."""
@@ -125,6 +127,8 @@ class PopupMessage(BaseEventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[BaseEventHandler]:
         """Any key returns to the parent handler."""
         return self.parent
+
+
 class EventHandler(BaseEventHandler):
     '''
         this classes handles events
@@ -173,16 +177,15 @@ class EventHandler(BaseEventHandler):
         if self.engine.game_map.in_bounds(event.tile.x, event.tile.y):
             self.engine.mouse_location = event.tile.x, event.tile.y
 
-
     def on_render(self, console: tcod.Console) -> None:
         '''
             on render function
         '''
         self.engine.render(console)
 
+
 class AskUserEventHandler(EventHandler):
     """Handles user input for actions which require special input."""
-
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         """By default any key exits this input handler."""
@@ -208,6 +211,7 @@ class AskUserEventHandler(EventHandler):
         By default this returns to the main event handler.
         """
         return MainGameEventHandler(self.engine)
+
 
 class CharacterScreenEventHandler(AskUserEventHandler):
     '''
@@ -256,6 +260,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defense}"
         )
+
 
 class LevelUpEventHandler(AskUserEventHandler):
     '''
@@ -328,6 +333,7 @@ class LevelUpEventHandler(AskUserEventHandler):
         """
         return None
 
+
 class InventoryEventHandler(AskUserEventHandler):
     """This handler lets the user select an item.
 
@@ -399,6 +405,7 @@ class InventoryEventHandler(AskUserEventHandler):
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         """Called when the user selects a valid item."""
 
+
 class InventoryActivateHandler(InventoryEventHandler):
     """Handle using an inventory item."""
 
@@ -415,6 +422,7 @@ class InventoryActivateHandler(InventoryEventHandler):
             return actions.EquipAction(self.engine.player, item)
         return None
 
+
 class InventoryDropHandler(InventoryEventHandler):
     """Handle dropping an inventory item."""
 
@@ -423,6 +431,7 @@ class InventoryDropHandler(InventoryEventHandler):
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
+
 
 class SelectIndexHandler(AskUserEventHandler):
     """Handles asking the user for an index on the map."""
@@ -478,12 +487,14 @@ class SelectIndexHandler(AskUserEventHandler):
         """Called when an index is selected."""
         raise NotImplementedError()
 
+
 class LookHandler(SelectIndexHandler):
     """Lets the player look around using the keyboard."""
 
     def on_index_selected(self, x: int, y: int) -> MainGameEventHandler:
         """Return to main handler."""
         return MainGameEventHandler(self.engine)
+
 
 class SingleRangedAttackHandler(SelectIndexHandler):
     """Handles targeting a single enemy. Only the enemy selected will be affected."""
@@ -497,6 +508,7 @@ class SingleRangedAttackHandler(SelectIndexHandler):
 
     def on_index_selected(self, x: int, y: int) -> Optional[Action]:
         return self.callback((x, y))
+
 
 class AreaRangedAttackHandler(SelectIndexHandler):
     """Handles targeting an area within a given radius. Any entity within the area will be affected."""
@@ -531,11 +543,11 @@ class AreaRangedAttackHandler(SelectIndexHandler):
     def on_index_selected(self, x: int, y: int) -> Optional[Action]:
         return self.callback((x, y))
 
+
 class MainGameEventHandler(EventHandler):
     '''
         main game event class
     '''
-
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         '''
@@ -552,7 +564,6 @@ class MainGameEventHandler(EventHandler):
             tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
         ):
             return actions.TakeStairsAction(player)
-
 
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]
@@ -577,6 +588,8 @@ class MainGameEventHandler(EventHandler):
 
         # No valid key was pressed
         return action
+
+
 class GameOverEventHandler(EventHandler):
     '''
         game over event
@@ -597,6 +610,7 @@ class GameOverEventHandler(EventHandler):
         '''
         if event.sym == tcod.event.K_ESCAPE:
             self.on_quit()
+
 
 class HistoryViewer(EventHandler):
     """Print the history on a larger window which can be navigated."""

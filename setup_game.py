@@ -28,7 +28,6 @@ def new_game() -> Engine:
     room_min_size = 6
     max_rooms = 30
 
-
     player = copy.deepcopy(entity_factories.player)
 
     engine = Engine(player=player)
@@ -60,6 +59,7 @@ def new_game() -> Engine:
     player.equipment.toggle_equip(leather_armor, add_message=False)
 
     return engine
+
 
 def load_game(filename: str) -> Engine:
     """Load an Engine instance from a file."""

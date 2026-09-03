@@ -55,7 +55,6 @@ class MessageLog:
         """
         self.render_messages(console, x, y, width, height, self.messages)
 
-
     @staticmethod
     def wrap(string: str, width: int) -> Iterable[str]:
         """Return a wrapped text message."""
@@ -65,7 +64,6 @@ class MessageLog:
                 )
 
     @classmethod
-
     def render_messages(
         cls,
         console: tcod.Console,

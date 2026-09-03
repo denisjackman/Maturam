@@ -11,10 +11,11 @@ import components.ai
 import components.inventory
 from components.base_component import BaseComponent
 from exceptions import Impossible
-from input_handlers import ( ActionOrHandler,
-                             AreaRangedAttackHandler,
-                             SingleRangedAttackHandler,
-                             )
+from input_handlers import (
+    ActionOrHandler,
+    AreaRangedAttackHandler,
+    SingleRangedAttackHandler,
+)
 
 if TYPE_CHECKING:
     from entity import Actor, Item
@@ -44,6 +45,7 @@ class Consumable(BaseComponent):
         if isinstance(inventory, components.inventory.Inventory):
             inventory.items.remove(entity)
 
+
 class ConfusionConsumable(Consumable):
     ''' confusion consumable object '''
     def __init__(self, number_of_turns: int):
@@ -57,7 +59,6 @@ class ConfusionConsumable(Consumable):
             self.engine,
             callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
         )
-
 
     def activate(self, action: actions.ItemAction) -> None:
         consumer = action.entity
@@ -103,6 +104,7 @@ class HealingConsumable(Consumable):
         else:
             raise Impossible("Your health is already full.")
 
+
 class FireballDamageConsumable(Consumable):
     ''' Fireball object '''
     def __init__(self, damage: int, radius: int):
@@ -118,7 +120,6 @@ class FireballDamageConsumable(Consumable):
             radius=self.radius,
             callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
         )
-
 
     def activate(self, action: actions.ItemAction) -> None:
         target_xy = action.target_xy
@@ -138,6 +139,7 @@ class FireballDamageConsumable(Consumable):
         if not targets_hit:
             raise Impossible("There are no targets in the radius.")
         self.consume()
+
 
 class LightningDamageConsumable(Consumable):
     '''

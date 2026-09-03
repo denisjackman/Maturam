@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from entity import Actor
     from game_map import GameMap, GameWorld
 
+
 class Engine:
     '''
         This is the game engine class
@@ -39,7 +40,6 @@ class Engine:
                     entity.ai.perform()
                 except exceptions.Impossible:
                     pass  # Ignore impossible action exceptions from AI.
-
 
     def update_fov(self) -> None:
         """Recompute the visible area based on the players point of view."""

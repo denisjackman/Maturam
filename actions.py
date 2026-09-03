@@ -43,7 +43,7 @@ class PickupAction(Action):
     """Pickup an item and add it to the inventory, if there is room for it."""
 
     # def __init__(self, entity: Actor):
-        # super().__init__(entity)
+    # super().__init__(entity)
 
     def perform(self) -> None:
         actor_location_x = self.entity.x
@@ -103,7 +103,6 @@ class DropItem(ItemAction):
         self.entity.inventory.drop(self.item)
 
 
-
 class EquipAction(Action):
     '''
         Equip Item action class
@@ -119,12 +118,14 @@ class EquipAction(Action):
         '''
         self.entity.equipment.toggle_equip(self.item)
 
+
 class WaitAction(Action):
     '''
         a wait action
     '''
     def perform(self) -> None:
         pass
+
 
 class TakeStairsAction(Action):
     '''
@@ -141,6 +142,7 @@ class TakeStairsAction(Action):
             )
         else:
             raise exceptions.Impossible("There are no stairs here.")
+
 
 class ActionWithDirection(Action):
     '''
@@ -197,6 +199,7 @@ class MeleeAction(ActionWithDirection):
             self.engine.message_log.add_message(
                 f"{attack_desc} but does no damage.", attack_color
             )
+
 
 class MovementAction(ActionWithDirection):  # pylint: disable=R0903
     '''

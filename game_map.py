@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from engine import Engine
     from entity import Entity
 
+
 class GameMap:
     '''
         gamemap class
@@ -67,8 +68,6 @@ class GameMap:
         '''
         yield from (entity for entity in self.entities if isinstance(entity, Item))
 
-
-
     def get_blocking_entity_at_location(
         self, location_x: int, location_y: int,
     ) -> Optional[Entity]:
@@ -110,7 +109,7 @@ class GameMap:
         then draw it with the "dark" colors.
         Otherwise, the default is "SHROUD".
         '''
-        console.tiles_rgb[0 : self.width, 0 : self.height] = np.select(
+        console.tiles_rgb[0: self.width, 0: self.height] = np.select(
             condlist=[self.visible, self.explored],
             choicelist=[self.tiles["light"], self.tiles["dark"]],
             default=tile_types.SHROUD,
@@ -126,6 +125,7 @@ class GameMap:
                 console.print(
                     x=entity.x, y=entity.y, string=entity.char, fg=entity.color
                 )
+
 
 class GameWorld:
     """

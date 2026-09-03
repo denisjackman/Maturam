@@ -26,6 +26,7 @@ def get_names_at_location(x: int, y: int, game_map: GameMap) -> str:
 
     return names.capitalize()
 
+
 def render_bar(
     console: Console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
@@ -58,6 +59,7 @@ def render_bar(
         fg=colours.BAR_TEXT
     )
 
+
 def render_dungeon_level(
     console: Console, dungeon_level: int, location: Tuple[int, int]
 ) -> None:
@@ -67,6 +69,7 @@ def render_dungeon_level(
     x, y = location
 
     console.print(x=x, y=y, string=f"Dungeon level: {dungeon_level}")
+
 
 def render_names_at_mouse_location(
     console: Console, x: int, y: int, engine: Engine
