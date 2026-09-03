@@ -8,6 +8,7 @@ import traceback
 from typing import Optional
 
 import tcod
+from tcod import libtcodpy
 
 import colours
 from engine import Engine
@@ -72,7 +73,7 @@ def load_game(filename: str) -> Engine:
 class MainMenu(input_handlers.BaseEventHandler):
     """Handle the main menu rendering and input."""
 
-    def on_render(self, console: tcod.Console) -> None:
+    def on_render(self, console: tcod.console.Console) -> None:
         """Render the main menu on a background image."""
         console.draw_semigraphics(background_image, 0, 0)
 
@@ -81,14 +82,14 @@ class MainMenu(input_handlers.BaseEventHandler):
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
             fg=colours.MENU_TITLE,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By (Your name here)",
             fg=colours.MENU_TITLE,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
 
         menu_width = 24
@@ -101,17 +102,17 @@ class MainMenu(input_handlers.BaseEventHandler):
                 text.ljust(menu_width),
                 fg=colours.MENU_TEXT,
                 bg=colours.BLACK,
-                alignment=tcod.CENTER,
-                bg_blend=tcod.BKGND_ALPHA(64),
+                alignment=libtcodpy.CENTER,
+                bg_blend=libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(  # pylint: disable=W0221
         self, event: tcod.event.KeyDown
     ) -> Optional[input_handlers.BaseEventHandler]:
         ''' key down '''
-        if event.sym in (tcod.event.K_q, tcod.event.K_ESCAPE):
+        if event.sym in (tcod.event.KeySym.Q, tcod.event.KeySym.ESCAPE):
             raise SystemExit()
-        if event.sym == tcod.event.K_c:
+        if event.sym == tcod.event.KeySym.C:
             try:
                 return input_handlers.MainGameEventHandler(load_game("saves/savegame.sav"))
             except FileNotFoundError:
@@ -119,7 +120,7 @@ class MainMenu(input_handlers.BaseEventHandler):
             except Exception as exc:  # pylint: disable=W0703
                 traceback.print_exc()  # Print to stderr.
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
-        elif event.sym == tcod.event.K_n:
+        elif event.sym == tcod.event.KeySym.N:
             return input_handlers.MainGameEventHandler(new_game())
 
         return None

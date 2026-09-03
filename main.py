@@ -42,7 +42,7 @@ def main() -> None:  # pylint: disable=R0914
         title="Yet Another Roguelike Tutorial",
         vsync=True,
     ) as context:
-        root_console = tcod.Console(screen_width, screen_height, order="F")  # pylint: disable=E1102
+        root_console = tcod.console.Console(screen_width, screen_height, order="F")  # pylint: disable=E1102
 
         try:
             while True:
