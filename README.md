@@ -11,6 +11,7 @@ Date| Version | Author | Reason
 20220618| 00.00.00 |Denis Jackman | Initial Version
 20220621| 00.00.01 |Denis Jackman | Added tables and updated notes
 20220823| 01.00.00 |Denis Jackman | Final version based on the tutorials
+20260903| 01.01.00 |Denis Jackman | Added pytest suite and Tests CI job, fixed the pylint/flake8 CI gate, removed the committed virtualenv, fixed a numpy bug tests caught, and fixed the malformed docs table
   |   |   |
 
 ## Links
