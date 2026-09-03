@@ -29,7 +29,7 @@ class Entity:
     """
     parent: Union[GameMap, Inventory]
 
-    def __init__(
+    def __init__(  # pylint: disable=R0917
         self,
         parent: Optional[GameMap] = None,
         x: int = 0,

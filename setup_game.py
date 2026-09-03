@@ -105,7 +105,7 @@ class MainMenu(input_handlers.BaseEventHandler):
                 bg_blend=tcod.BKGND_ALPHA(64),
             )
 
-    def ev_keydown(
+    def ev_keydown(  # pylint: disable=W0221
         self, event: tcod.event.KeyDown
     ) -> Optional[input_handlers.BaseEventHandler]:
         ''' key down '''

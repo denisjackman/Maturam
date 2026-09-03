@@ -64,7 +64,7 @@ class MessageLog:
                 )
 
     @classmethod
-    def render_messages(
+    def render_messages(  # pylint: disable=R0917
         cls,
         console: tcod.Console,
         x: int,

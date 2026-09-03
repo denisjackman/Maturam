@@ -2,6 +2,10 @@
 '''
     this is the input handlers class
 '''
+# tcod.event.EventDispatch declares its ev_* callbacks with 0 args as
+# override stubs; every handler below intentionally overrides them with
+# their real (self, event) signature, so arguments-differ is expected here.
+# pylint: disable=W0221
 from __future__ import annotations
 import os
 from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
@@ -623,7 +627,7 @@ class HistoryViewer(EventHandler):
     def on_render(self, console: tcod.Console) -> None:
         super().on_render(console)  # Draw the main state as the background.
 
-        log_console = tcod.Console(console.width - 6, console.height - 6)
+        log_console = tcod.Console(console.width - 6, console.height - 6)  # pylint: disable=E1102
 
         # Draw a frame with a custom banner title.
         log_console.draw_frame(0, 0, log_console.width, log_console.height)

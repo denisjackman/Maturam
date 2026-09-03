@@ -176,7 +176,7 @@ def tunnel_between(
         yield x, y
 
 
-def generate_dungeon(
+def generate_dungeon(  # pylint: disable=R0917
     max_rooms: int,
     room_min_size: int,
     room_max_size: int,
