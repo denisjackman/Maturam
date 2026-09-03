@@ -33,6 +33,7 @@ Welcome to the home of Maturam a [Roguelike](https://en.wikipedia.org/wiki/Rogue
 
 ## Status
 * [![Pylint](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pylint.yml)
+* [![Tests](https://github.com/denisjackman/Maturam/actions/workflows/tests.yml/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/tests.yml)
 * [![pages-build-deployment](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/denisjackman/Maturam/actions/workflows/pages/pages-build-deployment)
 * We are currently at [PART 8](https://rogueliketutorials.com/tutorials/tcod/v2/part-8/)
 
