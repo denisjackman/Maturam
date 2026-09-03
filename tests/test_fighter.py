@@ -2,6 +2,7 @@
     Tests for components/fighter.py
 '''
 import entity_factories
+from components.ai import ConfusedEnemy
 
 
 def test_hp_clamps_to_max(player):
@@ -55,3 +56,63 @@ def test_death_marks_actor_dead_and_awards_xp_to_player(player, orc):
     assert orc.is_alive is False
     assert orc.name == "remains of Orc"
     assert player.level.current_xp == expected_xp
+
+
+def test_regen_interval_scales_with_max_hp(player):
+    ''' higher max_hp (constitution) should mean a shorter regen interval '''
+    player.fighter.max_hp = 15
+    slow_interval = player.fighter.regen_interval
+
+    player.fighter.max_hp = 60
+    fast_interval = player.fighter.regen_interval
+
+    assert fast_interval < slow_interval
+
+
+def test_regen_interval_is_floored(player):
+    ''' regen_interval should never drop below the floor, however high max_hp goes '''
+    player.fighter.max_hp = 10000
+    assert player.fighter.regen_interval == 5
+
+
+def test_tick_regen_does_nothing_at_full_health(player):
+    ''' tick_regen should not accumulate progress once at full hp '''
+    player.fighter.tick_regen()
+    assert player.fighter.regen_progress == 0
+
+
+def test_tick_regen_heals_after_enough_safe_turns(player):
+    ''' after regen_interval safe ticks, hp should go up by 1 '''
+    player.fighter.hp = player.fighter.max_hp - 1
+    interval = player.fighter.regen_interval
+
+    for _ in range(interval - 1):
+        player.fighter.tick_regen()
+    assert player.fighter.hp == player.fighter.max_hp - 1  # not yet
+
+    player.fighter.tick_regen()
+    assert player.fighter.hp == player.fighter.max_hp
+
+
+def test_tick_regen_paused_when_hostile_visible(player, orc):
+    ''' regen progress should not advance while a hostile actor is visible '''
+    player.fighter.hp = player.fighter.max_hp - 1
+    player.gamemap.visible[orc.x, orc.y] = True
+
+    for _ in range(player.fighter.regen_interval):
+        player.fighter.tick_regen()
+
+    assert player.fighter.hp == player.fighter.max_hp - 1
+    assert player.fighter.regen_progress == 0
+
+
+def test_tick_regen_paused_when_incapacitated(player):
+    ''' regen progress should not advance while confused '''
+    player.fighter.hp = player.fighter.max_hp - 1
+    player.ai = ConfusedEnemy(player, previous_ai=player.ai, turns_remaining=5)
+
+    for _ in range(player.fighter.regen_interval):
+        player.fighter.tick_regen()
+
+    assert player.fighter.hp == player.fighter.max_hp - 1
+    assert player.fighter.regen_progress == 0

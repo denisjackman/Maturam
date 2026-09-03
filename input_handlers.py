@@ -180,6 +180,7 @@ class EventHandler(BaseEventHandler):
         self.engine.handle_enemy_turns()
 
         self.engine.update_fov()
+        self.engine.handle_player_regen()
         self.engine.turn_count += 1
         return True
 

@@ -42,6 +42,12 @@ class Engine:
                 except exceptions.Impossible:
                     pass  # Ignore impossible action exceptions from AI.
 
+    def handle_player_regen(self) -> None:
+        '''
+            Passive out-of-combat HP regen for the player.
+        '''
+        self.player.fighter.tick_regen()
+
     def update_fov(self) -> None:
         """Recompute the visible area based on the players point of view."""
         self.game_map.visible[:] = compute_fov(
