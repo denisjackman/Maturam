@@ -21,14 +21,16 @@ class FakeGameWorld:
 class FakeEngine:
     '''
         Minimal stand-in for engine.Engine - just enough (message_log,
-        player, game_world, turn_count) to satisfy BaseComponent.engine and
-        scoring.calculate_score without needing a real tcod rendering context.
+        player, game_world, turn_count, final_score_entry) to satisfy
+        BaseComponent.engine and scoring.calculate_score without needing a
+        real tcod rendering context.
     '''
     def __init__(self):
         self.message_log = MessageLog()
         self.player = None
         self.game_world = FakeGameWorld()
         self.turn_count = 0
+        self.final_score_entry = None
 
 
 @pytest.fixture(autouse=True)

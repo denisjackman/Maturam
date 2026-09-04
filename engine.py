@@ -4,7 +4,7 @@
 from __future__ import annotations
 import lzma
 import pickle
-from typing import TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 
 from tcod.console import Console
@@ -16,6 +16,7 @@ import render_functions
 if TYPE_CHECKING:
     from entity import Actor
     from game_map import GameMap, GameWorld
+    from scoring import ScoreEntry
 
 
 class Engine:
@@ -30,6 +31,7 @@ class Engine:
         self.mouse_location = (0, 0)
         self.player = player
         self.turn_count = 0
+        self.final_score_entry: Optional["ScoreEntry"] = None
 
     def handle_enemy_turns(self) -> None:
         '''

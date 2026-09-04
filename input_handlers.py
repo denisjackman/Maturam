@@ -672,12 +672,16 @@ class GameOverEventHandler(EventHandler):
             bg=colours.BLACK,
         )
 
-        final_score = scoring.calculate_score(self.engine)
-        console.print(x=x + 1, y=y + 1, string=f"Your score: {final_score}")
+        # Read the score straight from the entry record_score() already wrote,
+        # rather than recalculating - calculate_score() would use the engine's
+        # turn_count as it stands *now*, which ticks on past the moment of
+        # death and would drift from the leaderboard row for this same run.
+        final_entry = self.engine.final_score_entry
+        console.print(x=x + 1, y=y + 1, string=f"Your score: {final_entry.score}")
         console.print(
             x=x + 1,
             y=y + 2,
-            string=f"Reached level {self.engine.game_world.current_floor}",
+            string=f"Reached level {final_entry.depth}",
         )
 
         console.print(x=x + 1, y=y + 4, string="Top scores:")

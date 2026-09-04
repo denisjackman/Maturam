@@ -2,6 +2,7 @@
     Tests for components/fighter.py
 '''
 import entity_factories
+import scoring
 from components.ai import ConfusedEnemy
 
 
@@ -56,6 +57,26 @@ def test_death_marks_actor_dead_and_awards_xp_to_player(player, orc):
     assert orc.is_alive is False
     assert orc.name == "remains of Orc"
     assert player.level.current_xp == expected_xp
+
+
+def test_player_death_stores_the_final_score_entry(engine, player):
+    '''
+        dying should snapshot the leaderboard entry on the engine so it can't
+        drift from what gets shown on the game-over screen - regression for a
+        bug where the displayed score kept counting turns that happened after
+        death, landing 1 higher than the score actually recorded
+    '''
+    engine.turn_count = 10
+    player.level.current_xp = 5
+    engine.game_world.current_floor = 1
+
+    player.fighter.hp -= 9999  # drives hp to 0, triggering die() via the setter
+
+    recorded_score = engine.final_score_entry.score
+    engine.turn_count += 1  # the turn loop still increments the count after death
+
+    assert scoring.calculate_score(engine) == recorded_score + 1
+    assert engine.final_score_entry.score == recorded_score
 
 
 def test_regen_interval_scales_with_max_hp(player):
