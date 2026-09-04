@@ -9,7 +9,7 @@
 from __future__ import annotations
 import os
 from datetime import datetime
-from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
+from typing import Callable, List, Optional, Tuple, TYPE_CHECKING, Union
 
 import tcod.event
 from tcod import libtcodpy
@@ -646,6 +646,31 @@ def _format_leaderboard_row(rank: int, entry: scoring.ScoreEntry) -> str:
     )
 
 
+def _render_leaderboard_rows(
+    console: tcod.console.Console,
+    x: int,
+    y: int,
+    entries: List[scoring.ScoreEntry],
+) -> None:
+    '''
+        draw the "Top scores:" label, column header, divider, and each
+        row starting at (x, y) - shared by the game-over screen and the
+        standalone leaderboard viewer
+    '''
+    console.print(x=x, y=y, string="Top scores:")
+
+    header = f"{'#':>2}  {'Name':<{NAME_COLUMN_WIDTH}} {'Lvl':>3}  {'Score':>6}  Date"
+    console.print(x=x, y=y + 1, string=header)
+    console.print(x=x, y=y + 2, string="─" * (len(header)))
+
+    for i, entry in enumerate(entries):
+        console.print(
+            x=x,
+            y=y + 3 + i,
+            string=_format_leaderboard_row(i + 1, entry),
+        )
+
+
 class GameOverEventHandler(EventHandler):
     '''
         game over event
@@ -696,18 +721,7 @@ class GameOverEventHandler(EventHandler):
             string=f"Reached level {final_entry.depth}",
         )
 
-        console.print(x=x + 1, y=y + 4, string="Top scores:")
-
-        header = f"{'#':>2}  {'Name':<{NAME_COLUMN_WIDTH}} {'Lvl':>3}  {'Score':>6}  Date"
-        console.print(x=x + 1, y=y + 5, string=header)
-        console.print(x=x + 1, y=y + 6, string="─" * (width - 2))
-
-        for i, entry in enumerate(self.leaderboard_entries):
-            console.print(
-                x=x + 1,
-                y=y + 7 + i,
-                string=_format_leaderboard_row(i + 1, entry),
-            )
+        _render_leaderboard_rows(console, x + 1, y + 4, self.leaderboard_entries)
 
     def on_quit(self) -> None:
         """Handle exiting out of a finished game."""
@@ -725,6 +739,52 @@ class GameOverEventHandler(EventHandler):
         '''
         if event.sym == tcod.event.KeySym.ESCAPE:
             self.on_quit()
+
+
+class LeaderboardViewEventHandler(BaseEventHandler):
+    """
+        standalone leaderboard viewer, reachable from the main menu without
+        starting or loading a game
+    """
+    TITLE = "Leaderboard"
+    WIDTH = 44
+    HEIGHT = 15
+    ENTRIES_HEIGHT = HEIGHT - 6
+
+    def __init__(self, parent_handler: BaseEventHandler):
+        self.parent = parent_handler
+        # Fetched once here, not in on_render (called many times a second) -
+        # see GameOverEventHandler for the same reasoning.
+        self.leaderboard_entries = scoring.global_top_scores(count=self.ENTRIES_HEIGHT)
+
+    def on_render(self, console: tcod.console.Console) -> None:
+        """Render the parent dimmed, with the leaderboard box on top."""
+        self.parent.on_render(console)
+        console.rgb["fg"] //= 8
+        console.rgb["bg"] //= 8
+
+        x = console.width // 2 - self.WIDTH // 2
+        y = console.height // 2 - self.HEIGHT // 2
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=self.WIDTH,
+            height=self.HEIGHT,
+            title=self.TITLE,
+            clear=True,
+            fg=colours.WHITE,
+            bg=colours.BLACK,
+        )
+        console.print(x=x + 1, y=y + 1, string="[Esc] back")
+
+        _render_leaderboard_rows(console, x + 1, y + 3, self.leaderboard_entries)
+
+    def ev_keydown(  # pylint: disable=W0221
+        self, event: tcod.event.KeyDown
+    ) -> Optional[BaseEventHandler]:
+        """Any key returns to the parent handler."""
+        return self.parent
 
 
 class HistoryViewer(EventHandler):
