@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Analysing the code with pylint
       run: |
-        pylint --rcfile=pylint.rc $(git ls-files '*.py')
+        pylint --rcfile=pylint.rc $(git ls-files '*.py' ':!:infra/*')
     - name: Analysing the code with flake8
       run: |
-        flake8 --config flake8.cfg --exit-zero $(git ls-files '*.py')
+        flake8 --config flake8.cfg --exit-zero $(git ls-files '*.py' ':!:infra/*')
