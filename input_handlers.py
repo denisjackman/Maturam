@@ -120,6 +120,21 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     def ev_textinput(self, event: tcod.event.TextInput) -> None:
         ''' typed text - ignored here; only NamePromptEventHandler consumes it '''
 
+    def ev_begin(self, event: tcod.event.Drop) -> None:
+        ''' drag-and-drop started over the window - nothing to do '''
+
+    def ev_position(self, event: tcod.event.Drop) -> None:
+        ''' drag-and-drop hovering over the window - nothing to do '''
+
+    def ev_text(self, event: tcod.event.Drop) -> None:
+        ''' text dropped onto the window - nothing to do '''
+
+    def ev_file(self, event: tcod.event.Drop) -> None:
+        ''' file dropped onto the window - nothing to do '''
+
+    def ev_complete(self, event: tcod.event.Drop) -> None:
+        ''' drag-and-drop finished - nothing to do '''
+
 
 class PopupMessage(BaseEventHandler):
     """Display a popup text window."""
