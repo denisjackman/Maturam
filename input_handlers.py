@@ -114,6 +114,9 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     def ev_clipboardupdate(self, event: tcod.event.ClipboardUpdate) -> None:
         ''' OS clipboard changed - nothing to do '''
 
+    def ev_safeareachanged(self, event: tcod.event.WindowEvent) -> None:
+        ''' window safe-area insets changed - nothing to do '''
+
 
 class PopupMessage(BaseEventHandler):
     """Display a popup text window."""
