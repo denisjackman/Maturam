@@ -16,6 +16,7 @@ Date| Version | Author | Reason
 20260904| 01.02.01 |Denis Jackman | Fixed the game-over score display drifting 1 point above the leaderboard entry actually recorded for that run
 20260904| 01.03.00 |Denis Jackman | Added an AWS-backed global leaderboard (API Gateway + Lambda + DynamoDB, deployed via CDK) alongside the local one, with silent fallback to the local file on any network/API failure
 20260904| 01.03.01 |Denis Jackman | Added a [L] View leaderboard option to the main menu, so the global leaderboard can be checked without starting or loading a game
+20260904| 01.03.02 |Denis Jackman | Bumped actions/checkout and actions/setup-python from v3 to v7 in the CI workflows to clear the Node.js 20 deprecation warning
   |   |   |
 
 ## Links
