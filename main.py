@@ -42,6 +42,11 @@ def main() -> None:  # pylint: disable=R0914
         title="Yet Another Roguelike Tutorial",
         vsync=True,
     ) as context:
+        # SDL only emits TextInput events once text input mode is started -
+        # needed for the character-naming prompt to receive typed characters.
+        if context.sdl_window:
+            context.sdl_window.start_text_input()
+
         root_console = tcod.console.Console(screen_width, screen_height, order="F")  # pylint: disable=E1102
 
         try:

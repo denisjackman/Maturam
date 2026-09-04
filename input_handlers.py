@@ -117,6 +117,9 @@ class BaseEventHandler(tcod.event.EventDispatch[ActionOrHandler]):
     def ev_safeareachanged(self, event: tcod.event.WindowEvent) -> None:
         ''' window safe-area insets changed - nothing to do '''
 
+    def ev_textinput(self, event: tcod.event.TextInput) -> None:
+        ''' typed text - ignored here; only NamePromptEventHandler consumes it '''
+
 
 class PopupMessage(BaseEventHandler):
     """Display a popup text window."""
