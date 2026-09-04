@@ -3,7 +3,6 @@
 '''
 from __future__ import annotations
 
-import getpass
 import json
 import os
 from dataclasses import asdict, dataclass
@@ -65,7 +64,7 @@ def record_score(engine: "Engine", filename: str = LEADERBOARD_FILE) -> ScoreEnt
         calculate the final score for this run and append it to the leaderboard file
     '''
     entry = ScoreEntry(
-        player=getpass.getuser(),
+        player=engine.player.name,
         score=calculate_score(engine),
         xp=engine.player.level.current_xp,
         depth=engine.game_world.current_floor,

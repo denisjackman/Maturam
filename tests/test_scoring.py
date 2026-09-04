@@ -35,6 +35,16 @@ def test_record_score_appends_and_persists(engine, player, tmp_path):
     assert loaded[0].score == entry.score
 
 
+def test_record_score_uses_the_players_chosen_name(engine, player, tmp_path):
+    ''' the leaderboard entry should use the character's own name, not the OS user '''
+    player.name = "Thundermaw"
+    filename = str(tmp_path / "leaderboard.json")
+
+    entry = scoring.record_score(engine, filename)
+
+    assert entry.player == "Thundermaw"
+
+
 def test_record_score_appends_to_existing_entries(engine, player, tmp_path):
     ''' recording twice should keep both runs, not overwrite the file '''
     filename = str(tmp_path / "leaderboard.json")

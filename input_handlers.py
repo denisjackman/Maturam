@@ -8,6 +8,7 @@
 # pylint: disable=W0221
 from __future__ import annotations
 import os
+from datetime import datetime
 from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
 
 import tcod.event
@@ -604,6 +605,26 @@ class MainGameEventHandler(EventHandler):
         return action
 
 
+NAME_COLUMN_WIDTH = 12
+
+
+def _format_leaderboard_row(rank: int, entry: scoring.ScoreEntry) -> str:
+    '''
+        one leaderboard line: rank, name (truncated to fit), level died on,
+        score, and the date the run was recorded
+    '''
+    name = entry.player
+    if len(name) > NAME_COLUMN_WIDTH:
+        name = name[: NAME_COLUMN_WIDTH - 1] + "…"
+
+    date = datetime.fromisoformat(entry.timestamp).strftime("%Y-%m-%d")
+
+    return (
+        f"{rank:>2}. {name:<{NAME_COLUMN_WIDTH}} L{entry.depth:>2}  "
+        f"{entry.score:>6}  {date}"
+    )
+
+
 class GameOverEventHandler(EventHandler):
     '''
         game over event
@@ -613,8 +634,8 @@ class GameOverEventHandler(EventHandler):
     def on_render(self, console: tcod.console.Console) -> None:
         super().on_render(console)
 
-        width = 40
-        height = 14
+        width = 44
+        height = 17
 
         x = 0
         y = 0
@@ -632,13 +653,24 @@ class GameOverEventHandler(EventHandler):
 
         final_score = scoring.calculate_score(self.engine)
         console.print(x=x + 1, y=y + 1, string=f"Your score: {final_score}")
+        console.print(
+            x=x + 1,
+            y=y + 2,
+            string=f"Reached level {self.engine.game_world.current_floor}",
+        )
 
-        console.print(x=x + 1, y=y + 3, string="Top scores:")
-        for i, entry in enumerate(scoring.top_scores(count=height - 5)):
+        console.print(x=x + 1, y=y + 4, string="Top scores:")
+
+        header = f"{'#':>2}  {'Name':<{NAME_COLUMN_WIDTH}} {'Lvl':>3}  {'Score':>6}  Date"
+        console.print(x=x + 1, y=y + 5, string=header)
+        console.print(x=x + 1, y=y + 6, string="─" * (width - 2))
+
+        entries_height = height - 8
+        for i, entry in enumerate(scoring.top_scores(count=entries_height)):
             console.print(
                 x=x + 1,
-                y=y + 4 + i,
-                string=f"{i + 1}. {entry.player} - {entry.score}",
+                y=y + 7 + i,
+                string=_format_leaderboard_row(i + 1, entry),
             )
 
     def on_quit(self) -> None:

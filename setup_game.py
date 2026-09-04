@@ -19,8 +19,10 @@ import input_handlers
 # Load the background image and remove the alpha channel.
 background_image = tcod.image.load("images/menu_background.png")[:, :, :3]
 
+MAX_NAME_LENGTH = 20
 
-def new_game() -> Engine:
+
+def new_game(player_name: str = "Player") -> Engine:
     """Return a brand new game session as an Engine instance."""
     map_width = 80
     map_height = 43
@@ -30,6 +32,7 @@ def new_game() -> Engine:
     max_rooms = 30
 
     player = copy.deepcopy(entity_factories.player)
+    player.name = player_name
 
     engine = Engine(player=player)
 
@@ -121,6 +124,63 @@ class MainMenu(input_handlers.BaseEventHandler):
                 traceback.print_exc()  # Print to stderr.
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
         elif event.sym == tcod.event.KeySym.N:
-            return input_handlers.MainGameEventHandler(new_game())
+            return NamePromptEventHandler(self)
 
+        return None
+
+
+class NamePromptEventHandler(input_handlers.BaseEventHandler):
+    """Ask the player to name their character before a new game starts."""
+
+    def __init__(self, parent_handler: input_handlers.BaseEventHandler):
+        self.parent = parent_handler
+        self.name = ""
+
+    def on_render(self, console: tcod.console.Console) -> None:
+        """Render the parent dimmed, with a name-entry box on top."""
+        self.parent.on_render(console)
+        console.rgb["fg"] //= 8
+        console.rgb["bg"] //= 8
+
+        width = 40
+        height = 5
+        x = console.width // 2 - width // 2
+        y = console.height // 2 - height // 2
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            title="Name your character",
+            clear=True,
+            fg=colours.WHITE,
+            bg=colours.BLACK,
+        )
+        console.print(x=x + 1, y=y + 2, string=f"{self.name}_")
+        console.print(
+            x=x + 1,
+            y=y + 3,
+            string="[Enter] confirm  [Esc] cancel",
+            fg=colours.MENU_TEXT,
+        )
+
+    def ev_textinput(  # pylint: disable=W0221
+        self, event: tcod.event.TextInput
+    ) -> Optional[input_handlers.BaseEventHandler]:
+        ''' append typed characters to the name, up to the length limit '''
+        if len(self.name) < MAX_NAME_LENGTH:
+            self.name += event.text
+
+    def ev_keydown(  # pylint: disable=W0221
+        self, event: tcod.event.KeyDown
+    ) -> Optional[input_handlers.BaseEventHandler]:
+        ''' backspace edits the name, enter confirms, escape cancels '''
+        if event.sym == tcod.event.KeySym.BACKSPACE:
+            self.name = self.name[:-1]
+        elif event.sym == tcod.event.KeySym.ESCAPE:
+            return self.parent
+        elif event.sym in (tcod.event.KeySym.RETURN, tcod.event.KeySym.KP_ENTER):
+            player_name = self.name.strip() or "Player"
+            return input_handlers.MainGameEventHandler(new_game(player_name))
         return None
