@@ -14,6 +14,7 @@ Date| Version | Author | Reason
 20260903| 01.01.00 |Denis Jackman | Added pytest suite and Tests CI job, fixed the pylint/flake8 CI gate, removed the committed virtualenv, fixed a numpy bug tests caught, and fixed the malformed docs table
 20260904| 01.02.00 |Denis Jackman | Added a scoring system with a local leaderboard, passive HP regeneration scaled by constitution, a character-naming prompt shown on the leaderboard, and fixed several tcod event-dispatch RuntimeWarnings
 20260904| 01.02.01 |Denis Jackman | Fixed the game-over score display drifting 1 point above the leaderboard entry actually recorded for that run
+20260904| 01.03.00 |Denis Jackman | Added an AWS-backed global leaderboard (API Gateway + Lambda + DynamoDB, deployed via CDK) alongside the local one, with silent fallback to the local file on any network/API failure
   |   |   |
 
 ## Links

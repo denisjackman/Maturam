@@ -651,12 +651,24 @@ class GameOverEventHandler(EventHandler):
         game over event
     '''
     TITLE = "Leaderboard"
+    WIDTH = 44
+    HEIGHT = 17
+    ENTRIES_HEIGHT = HEIGHT - 8
+
+    def __init__(self, engine: Engine):
+        super().__init__(engine)
+        # Fetched once here rather than in on_render, which the render loop
+        # can call many times a second - a network request per frame would
+        # freeze this screen whenever the global leaderboard API is slow or
+        # unreachable. global_top_scores() itself falls back to the local
+        # leaderboard file on any failure.
+        self.leaderboard_entries = scoring.global_top_scores(count=self.ENTRIES_HEIGHT)
 
     def on_render(self, console: tcod.console.Console) -> None:
         super().on_render(console)
 
-        width = 44
-        height = 17
+        width = self.WIDTH
+        height = self.HEIGHT
 
         x = 0
         y = 0
@@ -690,8 +702,7 @@ class GameOverEventHandler(EventHandler):
         console.print(x=x + 1, y=y + 5, string=header)
         console.print(x=x + 1, y=y + 6, string="─" * (width - 2))
 
-        entries_height = height - 8
-        for i, entry in enumerate(scoring.top_scores(count=entries_height)):
+        for i, entry in enumerate(self.leaderboard_entries):
             console.print(
                 x=x + 1,
                 y=y + 7 + i,

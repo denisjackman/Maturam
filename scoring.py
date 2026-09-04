@@ -9,10 +9,22 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import List, TYPE_CHECKING
 
+import requests
+
 if TYPE_CHECKING:
     from engine import Engine
 
 LEADERBOARD_FILE = "leaderboard.json"
+
+# Global leaderboard API (see infra/). The local file above is always the
+# source of truth and the offline fallback; the API is best-effort on top -
+# set MATURAM_LEADERBOARD_API_KEY to enable submitting to it.
+API_BASE_URL = os.environ.get(
+    "MATURAM_LEADERBOARD_API_URL",
+    "https://arrpq65ila.execute-api.eu-west-2.amazonaws.com",
+)
+API_KEY = os.environ.get("MATURAM_LEADERBOARD_API_KEY")
+API_TIMEOUT_SECONDS = 2
 
 # XP is the main currency of progress, depth is the hardest-won measure of
 # progress so it's weighted heavily, and turns survived is a small tiebreaker
@@ -78,7 +90,36 @@ def record_score(engine: "Engine", filename: str = LEADERBOARD_FILE) -> ScoreEnt
     with open(filename, "w", encoding="utf-8") as f:
         json.dump([asdict(e) for e in entries], f, indent=2)
 
+    submit_remote_score(entry)
+
     return entry
+
+
+def submit_remote_score(entry: ScoreEntry) -> bool:
+    '''
+        best-effort push of a locally-recorded entry to the global
+        leaderboard; the local file is always the source of truth, so any
+        failure here (no key configured, offline, API down) is swallowed
+    '''
+    if not API_KEY:
+        return False
+
+    try:
+        response = requests.post(
+            f"{API_BASE_URL}/scores",
+            json={
+                "player": entry.player,
+                "score": entry.score,
+                "xp": entry.xp,
+                "depth": entry.depth,
+                "turns": entry.turns,
+            },
+            headers={"x-api-key": API_KEY},
+            timeout=API_TIMEOUT_SECONDS,
+        )
+        return response.ok
+    except requests.exceptions.RequestException:
+        return False
 
 
 def top_scores(filename: str = LEADERBOARD_FILE, count: int = 10) -> List[ScoreEntry]:
@@ -88,3 +129,20 @@ def top_scores(filename: str = LEADERBOARD_FILE, count: int = 10) -> List[ScoreE
     entries = load_leaderboard(filename)
 
     return sorted(entries, key=lambda entry: entry.score, reverse=True)[:count]
+
+
+def global_top_scores(count: int = 10, filename: str = LEADERBOARD_FILE) -> List[ScoreEntry]:
+    '''
+        top scores from the shared global leaderboard; falls back to the
+        local leaderboard on any failure (offline, API down, etc.)
+    '''
+    try:
+        response = requests.get(
+            f"{API_BASE_URL}/scores/top",
+            params={"limit": count},
+            timeout=API_TIMEOUT_SECONDS,
+        )
+        response.raise_for_status()
+        return [ScoreEntry(**raw) for raw in response.json()]
+    except requests.exceptions.RequestException:
+        return top_scores(filename, count)
